@@ -1,7 +1,19 @@
 (ns utils
-  (:import flask))
+  (:import (flask Flask)))
 
 (def app nil)
+
+(defmacro before-request
+  [name body]
+  `(let [f# (fn [] ~body)]
+     (.__setattr__ f# "func_name" (str (quote ~name)))
+     ((.-before_request (quote ~app)) f#)))
+
+(defmacro after-request
+  [name args body]
+  `(let [f# (fn ~args ~body)]
+     (.__setattr__ f# "func_name" (str (quote ~name)))
+     ((.-after_request (quote ~app)) f#)))
 
 (defmacro defroute
   "Defines a new route"
