@@ -1,5 +1,5 @@
 (ns utils
-  (:import (flask Flask)))
+  (:import flask))
 
 (def app nil)
 
