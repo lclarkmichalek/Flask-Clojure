@@ -16,6 +16,6 @@
   (def app (Flask. name)))
 
 (defn start-server
-  "Starts the server"
-  []
-  (.run app))
+  "Starts the server. First arg: host, second: port, third: debug. All optional"
+  [& args]
+  (eval `(.run app ~@args)))
